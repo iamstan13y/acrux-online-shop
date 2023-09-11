@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.Web", "AcruxShop.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.API", "AcruxShop.API\AcruxShop.API.csproj", "{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.Models", "AcruxShop.Models\AcruxShop.Models.csproj", "{94E7A096-1E26-4294-91F5-ECDA9E7D240E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E7A096-1E26-4294-91F5-ECDA9E7D240E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E7A096-1E26-4294-91F5-ECDA9E7D240E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E7A096-1E26-4294-91F5-ECDA9E7D240E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E7A096-1E26-4294-91F5-ECDA9E7D240E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
