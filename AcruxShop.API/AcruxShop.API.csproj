@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\AcruxShop.Models\AcruxShop.Models.csproj" />
   </ItemGroup>
 
 </Project>
