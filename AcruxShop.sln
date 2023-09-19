@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.Web", "AcruxShop.Web\AcruxShop.Web.csproj", "{7B2D6339-0CBA-44E2-B47D-2601BCE114AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcruxShop.Web", "AcruxShop.Web\AcruxShop.Web.csproj", "{7B2D6339-0CBA-44E2-B47D-2601BCE114AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.API", "AcruxShop.API\AcruxShop.API.csproj", "{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcruxShop.API", "AcruxShop.API\AcruxShop.API.csproj", "{9DC81032-5BD3-44B3-A2CD-ABC38901EE8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcruxShop.Models", "AcruxShop.Models\AcruxShop.Models.csproj", "{94E7A096-1E26-4294-91F5-ECDA9E7D240E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcruxShop.Models", "AcruxShop.Models\AcruxShop.Models.csproj", "{94E7A096-1E26-4294-91F5-ECDA9E7D240E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
