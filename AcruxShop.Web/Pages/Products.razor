@@ -19,6 +19,7 @@ else
         @for(int i = 0; i < productCount; i++)
         {
             Products.Skip(i * itemsPerRow).Take(itemsPerRow).ToList();
+
         }
     }
 }
