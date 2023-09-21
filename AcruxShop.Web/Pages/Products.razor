@@ -13,31 +13,23 @@ else
 
     @if (productCount > 0)
     {
+        var groupedProductsByCategory = from product in Products
+                                        group product by product.CategoryId into prodByCatGroup
+                                        orderby prodByCatGroup.Key
+                                        select prodByCatGroup;
+
         const int itemsPerRow = 4;
         var productRowList = new List<ProductDto>();
 
-        @for(int i = 0; i < productCount; i++)
+        @for (int i = 0; i < productCount; i++)
         {
-            Products.Skip(i * itemsPerRow).Take(itemsPerRow).ToList();
+            productRowList = Products.Skip(i * itemsPerRow).Take(itemsPerRow).ToList();
 
             <div class="row mt-3">
-                @foreach(var item in productRowList)
+
+                @foreach (var prodGroup in groupedProductsByCategory)
                 {
-                    <div class="col-md-3 mb-2">
-                        <a href="#">
-                            <div class="card">
-                                <img class="img-thumbnail" src="@item.ImageUrl">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3">
-                                        @item.Name
-                                    </h5>
-                                    <p class="card-text">
-                                        <b>@item.Price.ToString("C")</b>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <DisplayProducts Products="@prodGroup"></DisplayProducts>
                 }
             </div>
         }
