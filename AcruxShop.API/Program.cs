@@ -2,6 +2,7 @@ using AcruxShop.API.Data;
 using AcruxShop.API.Repositories;
 using AcruxShop.API.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(policy =>
+    policy.WithOrigins("http://localhost:7211", "https://localhost:7211")
+    .AllowAnyHeader()
+    .WithHeaders(HeaderNames.ContentType));
 
 app.UseHttpsRedirection();
 
