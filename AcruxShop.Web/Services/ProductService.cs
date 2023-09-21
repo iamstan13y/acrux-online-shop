@@ -17,7 +17,7 @@ public class ProductService : IProductService
     {
         try
         {
-            var products = await _httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("api/Product");
+            var products = await _httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("api/v1/Product");
 
             return products;
         }
