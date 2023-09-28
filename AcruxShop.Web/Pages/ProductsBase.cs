@@ -16,4 +16,17 @@ public class ProductsBase : ComponentBase
         Products = await ProductService.GetAllAsync();
     }
 
+    protected IOrderedEnumerable<IGrouping<int,  ProductDto>> GetGroupedProductsByCategory()
+    {
+        return from product in Products
+               group product by product.CategoryId into prodByCatGroup
+               orderby prodByCatGroup.Key
+               select prodByCatGroup;
+    }
+
+    protected string GetCategoryName(IGrouping<int, ProductDto> groupedProducts)
+    {
+        return groupedProducts.FirstOrDefault(pg => pg.CategoryId == groupedProducts.Key).CategoryName;
+    }
+
 }
