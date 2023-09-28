@@ -35,4 +35,24 @@ public class ProductController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProductDto>> Get(int id)
+    {
+        try
+        {
+            var product = await _productRepository.GetAsync(id);
+            var productCategory = await _productRepository.GetCategoryAsync(product.CategoryId);
+
+            var productDto = product.ConvertToDto(productCategory);
+
+            return Ok(product);
+        }
+
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
 }
