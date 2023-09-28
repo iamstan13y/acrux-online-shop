@@ -20,9 +20,10 @@ public class ProductRepository : IProductRepository
         return products;
     }
 
-    public Task<Product> GetAsync(int id)
+    public async Task<Product> GetAsync(int id)
     {
-        throw new NotImplementedException();
+        var product = await _context.Products!.FindAsync(id);
+        return product;
     }
 
     public async Task<IEnumerable<ProductCategory>> GetCategoriesAsync()
@@ -31,8 +32,9 @@ public class ProductRepository : IProductRepository
         return categories;
     }
 
-    public Task<ProductCategory> GetCategoryAsync(int id)
+    public async Task<ProductCategory> GetCategoryAsync(int id)
     {
-        throw new NotImplementedException();
+        var category = await _context.ProductCategories!.FindAsync(id);
+        return category;
     }
 }
