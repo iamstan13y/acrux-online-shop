@@ -51,8 +51,7 @@ public class ProductController : ControllerBase
 
         catch (Exception)
         {
-
-            throw;
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data!");
         }
     }
 }
