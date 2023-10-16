@@ -64,7 +64,7 @@ public class ShoppingCartRepository : IShoppingCartRepository
     {
         return await (from cart in _context.Carts
                       join cartItem in _context.CartItems!
-                      on cart.Id equals cartItem.Id
+                      on cart.Id equals cartItem.CartId
                       where cart.UserId == userId
                       select new CartItem
                       {
