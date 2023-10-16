@@ -1,11 +1,14 @@
 ﻿using AcruxShop.Models.Dtos;
 using AcruxShop.Web.Services.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace AcruxShop.Web.Pages;
 
 public class ShoppingCartBase : ComponentBase
 {
+	[Inject]
+	public IJSRuntime JS { get; set; }
     [Inject]
     public IShoppingCartService? ShoppingCartService { get; set; }
     public List<CartItemDto>? CartItems { get; set; }
@@ -19,7 +22,7 @@ public class ShoppingCartBase : ComponentBase
 		{
 			CartItems = (await ShoppingCartService!.GetCartItemsAsync(HardCoded.UserId)).ToList();
 			CalculateCartSummaryTotals();
-		}
+        }
 		catch (Exception ex)
 		{
 		 ErrorMessage = ex.Message;
@@ -50,7 +53,9 @@ public class ShoppingCartBase : ComponentBase
 				UpdateItemTotalPrice(returnedUpdateItemDto);
 
 				CalculateCartSummaryTotals();
-			}
+
+				await MakeQuantityButtonVisible(id, false);
+            }
 			else
 			{
 				var item = CartItems?.FirstOrDefault(x => x.Id == id);
@@ -67,8 +72,18 @@ public class ShoppingCartBase : ComponentBase
 			throw;
 		}
 	}
-	
-	private void UpdateItemTotalPrice(CartItemDto cartItemDto)
+
+	protected async Task UpdateQuantity_Input(int id)
+	{
+		await JS.InvokeVoidAsync("MakeQuantityButtonVisible", id, true);
+	}
+
+    private async Task MakeQuantityButtonVisible(int id, bool visible)
+    {
+        await JS.InvokeVoidAsync("MakeQuantityButtonVisible", id, visible);
+    }
+
+    private void UpdateItemTotalPrice(CartItemDto cartItemDto)
 	{
 		var item = GetCartItem(cartItemDto.Id);
 
