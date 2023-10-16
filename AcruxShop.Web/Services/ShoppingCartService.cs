@@ -42,6 +42,26 @@ public class ShoppingCartService : IShoppingCartService
         }
     }
 
+    public async Task<CartItemDto> DeleteItemAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"api/v1/ShoppingCart/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+
+            return default;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
     public async Task<IEnumerable<CartItemDto>> GetCartItemsAsync(int userId)
     {
         try
