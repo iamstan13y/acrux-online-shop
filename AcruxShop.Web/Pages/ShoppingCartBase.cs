@@ -9,6 +9,8 @@ public class ShoppingCartBase : ComponentBase
     [Inject]
     public IShoppingCartService? ShoppingCartService { get; set; }
     public List<CartItemDto>? CartItems { get; set; }
+	protected string? TotalPrice { get; set; }
+	protected int TotalQuantity { get; set; }
 	public string? ErrorMessage { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -16,6 +18,7 @@ public class ShoppingCartBase : ComponentBase
 		try
 		{
 			CartItems = (await ShoppingCartService!.GetCartItemsAsync(HardCoded.UserId)).ToList();
+			CalculateCartSummaryTotals();
 		}
 		catch (Exception ex)
 		{
@@ -28,7 +31,68 @@ public class ShoppingCartBase : ComponentBase
 		var cartitemDto = await ShoppingCartService.DeleteItemAsync(id);
 
 		RemoveCartItem(id);
+        CalculateCartSummaryTotals();
+    }
+
+	protected async Task UpdateCartItenQuantity_Click(int id, int quantity)
+	{
+		try
+		{
+			if (quantity > 0)
+			{
+				var updateItemDto = new CartItemQuantityUpdateDto
+				{
+					CartItemId = id,
+					Quantity = quantity
+				};
+
+				var returnedUpdateItemDto = await ShoppingCartService.UpdateQuantityAsync(updateItemDto);
+				UpdateItemTotalPrice(returnedUpdateItemDto);
+
+				CalculateCartSummaryTotals();
+			}
+			else
+			{
+				var item = CartItems?.FirstOrDefault(x => x.Id == id);
+				if (item != null)
+				{
+					item.Quantity = 1;
+					item.Total = item.Price;
+				}
+			}
+		}
+		catch (Exception)
+		{
+
+			throw;
+		}
 	}
+	
+	private void UpdateItemTotalPrice(CartItemDto cartItemDto)
+	{
+		var item = GetCartItem(cartItemDto.Id);
+
+		if (item != null)
+		{
+			item.Total = cartItemDto.Price * cartItemDto.Quantity;
+		}
+	}
+
+	private void CalculateCartSummaryTotals()
+	{
+		SetTotalPrice();
+		SetTotalQuantity();
+	}
+
+	private void SetTotalPrice()
+	{
+		TotalPrice = CartItems.Sum(p => p.Total).ToString("C");
+	}
+
+    private void SetTotalQuantity()
+    {
+		TotalQuantity = CartItems.Sum(p => p.Quantity);
+    }
 
     private CartItemDto GetCartItem(int id) => CartItems?.FirstOrDefault(i => i.Id == id)!;
 
