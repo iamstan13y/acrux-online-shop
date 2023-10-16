@@ -102,4 +102,24 @@ public class ShoppingCartController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, $"Some error occured: {ex.Message}");
         }
     }
+
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<CartItemDto>> UpdateQuantity(int id, CartItemQuantityUpdateDto quantityDto)
+    {
+        try
+        {
+            var cartItem = await _shoppingCartRepository.UpdateQuantityAsync(id, quantityDto);
+            if (cartItem == null) return NotFound();
+
+            var product = await _productRepository.GetAsync(cartItem.ProductId);
+
+            var cartItemDto = cartItem?.ConvertToDto(product);
+
+            return Ok(cartItemDto);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, $"Some error occured: {ex.Message}");
+        }
+    }
 }
