@@ -9,5 +9,5 @@ public interface IShoppingCartRepository
     Task<CartItem> UpdateQuantityAsync(int id, CartItemQuantityUpdateDto quantityUpdateDto);
     Task<CartItem> DeleteItemAsync(int id);
     Task<CartItem> GetItemAsync(int id);
-    Task<IEnumerable<CartItem>> GetItemsAsync(int userId);
+    Task<List<CartItem>> GetItemsAsync(int userId);
 }
