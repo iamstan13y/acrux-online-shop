@@ -1,7 +1,9 @@
 ﻿using AcruxShop.Models.Dtos;
 using AcruxShop.Web.Services.Contracts;
+using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace AcruxShop.Web.Services;
 
@@ -82,6 +84,29 @@ public class ShoppingCartService : IShoppingCartService
                 var message = await response.Content.ReadAsStringAsync();
                 throw new Exception($"HTTP Status:{response.StatusCode} Message: -{message}");
             }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    public async Task<CartItemDto> UpdateQuantityAsync(CartItemQuantityUpdateDto quantityUpdateDto)
+    {
+        try
+        {
+            var jsonRequest = JsonConvert.SerializeObject(quantityUpdateDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            var response = await _httpClient.PatchAsync($"api/v1/ShoppingCart/{quantityUpdateDto.CartItemId}", content);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+
+            return null;
         }
         catch (Exception)
         {
