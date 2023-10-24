@@ -8,12 +8,19 @@ public class ProductsBase : ComponentBase
 {
     [Inject]
     public IProductService ProductService { get; set; }
+    [Inject]
+    public IShoppingCartService ShoppingCartService { get; set; }
 
     public IEnumerable<ProductDto>? Products { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Products = await ProductService.GetAllAsync();
+
+        var cartItems = await ShoppingCartService.GetCartItemsAsync(HardCoded.UserId);
+        var totalQuantity = cartItems.Sum(x => x.Quantity);
+
+        ShoppingCartService.RaiseEventOnShoppingCartChanged(totalQuantity);
     }
 
     protected IOrderedEnumerable<IGrouping<int,  ProductDto>> GetGroupedProductsByCategory()
