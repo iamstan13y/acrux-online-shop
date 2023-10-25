@@ -13,7 +13,7 @@ public class ShoppingCartService : IShoppingCartService
 
     public ShoppingCartService(HttpClient httpClient)
     {
-            _httpClient = httpClient;
+        _httpClient = httpClient;
     }
 
     public event Action<int> OnShoppingCartChanged;
@@ -107,7 +107,7 @@ public class ShoppingCartService : IShoppingCartService
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
             var response = await _httpClient.PatchAsync($"api/v1/ShoppingCart/{quantityUpdateDto.CartItemId}", content);
-            
+
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<CartItemDto>();
