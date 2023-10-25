@@ -47,7 +47,7 @@ public class ProductService : IProductService
             else
             {
                 var message = await response.Content.ReadAsStringAsync();
-                throw new Exception(message); 
+                throw new Exception(message);
             }
 
         }
