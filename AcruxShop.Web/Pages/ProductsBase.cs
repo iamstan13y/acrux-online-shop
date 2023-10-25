@@ -23,7 +23,7 @@ public class ProductsBase : ComponentBase
         ShoppingCartService.RaiseEventOnShoppingCartChanged(totalQuantity);
     }
 
-    protected IOrderedEnumerable<IGrouping<int,  ProductDto>> GetGroupedProductsByCategory()
+    protected IOrderedEnumerable<IGrouping<int, ProductDto>> GetGroupedProductsByCategory()
     {
         return from product in Products
                group product by product.CategoryId into prodByCatGroup
