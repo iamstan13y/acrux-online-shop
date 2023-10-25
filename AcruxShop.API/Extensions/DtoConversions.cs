@@ -50,9 +50,9 @@ public static class DtoConversions
                     ProductName = product.Name,
                     ProductDescription = product.Description,
                     ProductImageUrl = product.ImageUrl,
-                    Price= product.Price,
+                    Price = product.Price,
                     Id = cartItem.Id,
-                    Quantity= cartItem.Quantity,
+                    Quantity = cartItem.Quantity,
                     Total = product.Price * cartItem.Quantity,
                 }).ToList();
     }
@@ -60,16 +60,16 @@ public static class DtoConversions
     public static CartItemDto ConvertToDto(this CartItem cartItem, Product product)
     {
         return new CartItemDto
-                {
-                    CartId = cartItem.CartId,
-                    ProductId = cartItem.ProductId,
-                    ProductName = product.Name,
-                    ProductDescription = product.Description,
-                    ProductImageUrl = product.ImageUrl,
-                    Price = product.Price,
-                    Id = cartItem.Id,
-                    Quantity = cartItem.Quantity,
-                    Total = product.Price * cartItem.Quantity,
-                };
+        {
+            CartId = cartItem.CartId,
+            ProductId = cartItem.ProductId,
+            ProductName = product.Name,
+            ProductDescription = product.Description,
+            ProductImageUrl = product.ImageUrl,
+            Price = product.Price,
+            Id = cartItem.Id,
+            Quantity = cartItem.Quantity,
+            Total = product.Price * cartItem.Quantity,
+        };
     }
 }
