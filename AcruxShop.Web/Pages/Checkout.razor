@@ -3,7 +3,7 @@
 
 <h3 class="mb-5">Checkout</h3>
 <div class="row">
-    <div class="col-md-6" style="display:@DisplayButtons" >
+    <div class="col-md-6" style="" >
         <h4 class="mb-2">Payment Method</h4>
         <div id="smart-button-container">
             <input type="hidden" name="descriptionInput" id="description" @bind="PaymentDescription" />
@@ -11,7 +11,7 @@
             <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
         </div>
     </div>
-@if (ShoppingCartItems == null)
+@if (CartItems == null)
 {
         <DisplaySpinner/>
     }
@@ -19,7 +19,7 @@
     {
         <div class="col-md-6">
             <h4 class="mb-2">Payment Summary</h4>
-            @if (ShoppingCartItems.Count() > 0)
+        @if (CartItems.Count() > 0)
             {
                 <table class="table">
                     <thead>
@@ -29,11 +29,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in ShoppingCartItems)
+                    @foreach (var item in CartItems)
                         {
                             <tr>
-                                <td>@item.Qty x @item.ProductName</td>
-                                <td>@item.TotalPrice.ToString("C")</td>
+                                <td>@item.Quantity x @item.ProductName</td>
+                                <td>@item.Total.ToString("C")</td>
                             </tr>
                         }
                         <tr>
