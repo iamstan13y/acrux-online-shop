@@ -25,7 +25,25 @@ namespace AcruxShop.Web.Pages
                 if (CartItems != null)
                 {
                     Guid orderGuid = Guid.NewGuid();
-                    PaymentAmount = CartItems.Sum
+                    PaymentAmount = CartItems.Sum(p => p.Total);
+                    TotalQuantity = CartItems.Sum(p => p.Quantity);
+                    PaymentDescription = $"0_{HardCoded.UserId}_{orderGuid}";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            try
+            {
+                if (firstRender)
+                {
+                    await Js.InvokeVoidAsync("initPayPalButton");
                 }
             }
             catch (Exception)
