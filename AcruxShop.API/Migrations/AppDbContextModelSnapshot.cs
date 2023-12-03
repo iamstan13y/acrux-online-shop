@@ -342,6 +342,9 @@ namespace AcruxShop.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("IconCSS")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -353,21 +356,25 @@ namespace AcruxShop.API.Migrations
                         new
                         {
                             Id = 1,
+                            IconCSS = "fas fa-spa",
                             Name = "Beauty"
                         },
                         new
                         {
                             Id = 2,
+                            IconCSS = "fas fa-couch",
                             Name = "Furniture"
                         },
                         new
                         {
                             Id = 3,
+                            IconCSS = "fas fa-headphones",
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 4,
+                            IconCSS = "fas fa-shoe-prints",
                             Name = "Shoes"
                         });
                 });
