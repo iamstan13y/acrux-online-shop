@@ -290,22 +290,26 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
         {
             Id = 1,
-            Name = "Beauty"
+            Name = "Beauty",
+            IconCSS = "fas fa-spa"
         });
         modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
         {
             Id = 2,
-            Name = "Furniture"
+            Name = "Furniture",
+            IconCSS = "fas fa-couch"
         });
         modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
         {
             Id = 3,
-            Name = "Electronics"
+            Name = "Electronics",
+            IconCSS = "fas fa-headphones"
         });
         modelBuilder.Entity<ProductCategory>().HasData(new ProductCategory
         {
             Id = 4,
-            Name = "Shoes"
+            Name = "Shoes",
+            IconCSS = "fas fa-shoe-prints"
         });
     }
 
