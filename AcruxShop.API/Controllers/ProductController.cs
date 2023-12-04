@@ -71,4 +71,21 @@ public class ProductController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data!");
         }
     }
+
+    [HttpGet]
+    [Route("{category}/GetItemsByCategory")]
+    public async Task<ActionResult<IEnumerable<ProductDto>>> GetItemsByCategory(int categoryId)
+    {
+        try
+        {
+            var productCategories = await _productRepository.GetItemsByCategoryAsync(categoryId);
+            var productCategoryDtos = productCategories.ConvertToDto();
+
+            return Ok(productCategoryDtos);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data!");
+        }
+    }
 }
