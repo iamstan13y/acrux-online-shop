@@ -12,7 +12,7 @@ else
 {
     @foreach(var productCategory in ProductCategoryDtos)
     {
-        var link = $"/ProductByCategory/{productCategory.Id}";
+        var link = $"/ProductsByCategory/{productCategory.Id}";
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="@link">
