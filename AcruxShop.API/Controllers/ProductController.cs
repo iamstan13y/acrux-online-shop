@@ -73,13 +73,14 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{category}/GetItemsByCategory")]
+    [Route("{categoryId}/GetItemsByCategory")]
     public async Task<ActionResult<IEnumerable<ProductDto>>> GetItemsByCategory(int categoryId)
     {
         try
         {
-            var productCategories = await _productRepository.GetItemsByCategoryAsync(categoryId);
-            var productCategoryDtos = productCategories.ConvertToDto();
+            var products = await _productRepository.GetItemsByCategoryAsync(categoryId);
+            var productsCategories = await _productRepository.GetCategoriesAsync();
+            var productCategoryDtos = products.ConvertToDto(productsCategories);
 
             return Ok(productCategoryDtos);
         }
