@@ -38,7 +38,7 @@ public class ProductRepository : IProductRepository
         return category;
     }
 
-    public async Task<IEnumerable<ProductCategory>> GetItemsByCategoryAsync(int categoryId)
+    public async Task<IEnumerable<Product>> GetItemsByCategoryAsync(int categoryId)
     {
         var products = await (from  product in _context.Products!
                               where product.CategoryId == categoryId
