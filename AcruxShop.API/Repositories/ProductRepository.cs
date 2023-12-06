@@ -16,13 +16,21 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        var products = await _context.Products!.ToListAsync();
+        var products = await _context
+            .Products!
+            .Include(p => p.ProductCategory)
+            .ToListAsync();
+        
         return products;
     }
 
     public async Task<Product> GetAsync(int id)
     {
-        var product = await _context.Products!.FindAsync(id);
+        var product = await _context
+            .Products!
+            .Include(p => p.ProductCategory)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
         return product;
     }
 
@@ -40,9 +48,11 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetItemsByCategoryAsync(int categoryId)
     {
-        var products = await (from  product in _context.Products!
-                              where product.CategoryId == categoryId
-                              select product).ToListAsync();
+        var products = await _context
+            .Products!
+            .Include(p => p.ProductCategory)
+            .Where(p => p.CategoryId == categoryId)
+            .ToListAsync();
 
         return products;
     }
