@@ -1,19 +1,21 @@
 ﻿@page "/ProductsByCategory/{CategoryId:int}"
 @inherits ProductsByCategoryBase
 
-@if(Products == null && ErrorMessage == null)
+@if (Products == null && ErrorMessage == null)
 {
-    <DisplaySpinner/>
+    <DisplaySpinner />
 }
 else if (ErrorMessage != null)
 {
-    <DisplayError ErrorMessage="@ErrorMessage"/>
+    <DisplayError ErrorMessage="@ErrorMessage" />
 }
 else
 {
     <h3>Products (@CategoryName)</h3>
-    @if(Products.Count() > 0)
+    @if (Products.Count() > 0)
     {
-        <DisplayProducts Products="@Products"></DisplayProducts>
+        <div class="row mt-3">
+            <DisplayProducts Products="@Products"></DisplayProducts>
+        </div>
     }
 }
