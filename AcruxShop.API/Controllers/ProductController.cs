@@ -22,9 +22,8 @@ public class ProductController : ControllerBase
         try
         {
             var products = await _productRepository.GetAllAsync();
-            var productCategories = await _productRepository.GetCategoriesAsync();
 
-            var productDtos = products.ConvertToDto(productCategories);
+            var productDtos = products.ConvertToDto();
 
             return Ok(productDtos);
         }
@@ -42,9 +41,8 @@ public class ProductController : ControllerBase
         try
         {
             var product = await _productRepository.GetAsync(id);
-            var productCategory = await _productRepository.GetCategoryAsync(product.CategoryId);
 
-            var productDto = product.ConvertToDto(productCategory);
+            var productDto = product.ConvertToDto();
 
             return Ok(product);
         }
@@ -79,8 +77,7 @@ public class ProductController : ControllerBase
         try
         {
             var products = await _productRepository.GetItemsByCategoryAsync(categoryId);
-            var productsCategories = await _productRepository.GetCategoriesAsync();
-            var productCategoryDtos = products.ConvertToDto(productsCategories);
+            var productCategoryDtos = products.ConvertToDto();
 
             return Ok(productCategoryDtos);
         }
