@@ -13,6 +13,11 @@ public class ProductDetailsBase : ComponentBase
     [Inject]
     public IShoppingCartService? ShoppingCartService { get; set; }
     [Inject]
+    public IManageCartItemsLocalStorageService? ManageCartItemsLocalStorageService { get; set; }
+    [Inject]
+    public IManageProductsLocalStorageService? ManageProductsLocalStorageService { get; set; }
+    private List<CartItemDto>? CartItems { get; set; }
+    [Inject]
     public NavigationManager? NavigationManager { get; set; }
     public ProductDto? Product { get; set; }
     public string? ErrorMessage { get; set; }
@@ -21,7 +26,8 @@ public class ProductDetailsBase : ComponentBase
     {
         try
         {
-            Product = await ProductService!.GetAsync(Id);
+            CartItems = (await ManageCartItemsLocalStorageService.GetCollectionAsync()).ToList();
+            Product = await GetProductByIdAsync(Id);
         }
         catch (Exception ex)
         {
@@ -34,6 +40,12 @@ public class ProductDetailsBase : ComponentBase
         try
         {
             var cartItemDto = await ShoppingCartService!.AddItemAsync(cartItemToAddDto);
+            if (cartItemDto == null)
+            {
+                CartItems.Add(cartItemDto);
+                await ManageCartItemsLocalStorageService.SaveCollection(CartItems);
+            }
+
             NavigationManager?.NavigateTo("/ShoppingCart");
         }
         catch (Exception)
@@ -41,5 +53,16 @@ public class ProductDetailsBase : ComponentBase
 
             throw;
         }
+    }
+
+    private async Task<ProductDto> GetProductByIdAsync(int id)
+    {
+        var productDtos = await ManageProductsLocalStorageService.GetCollectionAsync();
+
+        if (productDtos != null)
+        {
+            return productDtos.SingleOrDefault(p => p.Id == id);
+        }
+        return null;
     }
 }
