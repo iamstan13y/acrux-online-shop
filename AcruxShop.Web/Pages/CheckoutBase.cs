@@ -15,12 +15,14 @@ namespace AcruxShop.Web.Pages
         protected decimal PaymentAmount { get; set; }
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
+        [Inject]
+        public IManageCartItemsLocalStorageService? ManageCartItemsLocalStorageService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                CartItems = await ShoppingCartService.GetCartItemsAsync(HardCoded.UserId);
+                CartItems = await ManageCartItemsLocalStorageService.GetCollectionAsync();
 
                 if (CartItems != null)
                 {
