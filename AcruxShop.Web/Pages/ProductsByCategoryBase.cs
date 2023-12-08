@@ -11,6 +11,8 @@ public class ProductsByCategoryBase : ComponentBase
     [Inject]
     public IProductService ProductService { get; set; }
     public IEnumerable<ProductDto> Products { get; set; }
+    [Inject]
+    public IManageProductsLocalStorageService? ManageProductsLocalStorageService { get; set; }
     public string CategoryName { get; set; }
     public string ErrorMessage { get; set; }
 
@@ -18,7 +20,7 @@ public class ProductsByCategoryBase : ComponentBase
     {
         try
         {
-            Products = await ProductService.GetItemsByCategory(CategoryId);
+            Products = await GetProductCollectionByCategoryId(CategoryId);
 
             if (Products != null && Products.Any())
             {
@@ -32,6 +34,20 @@ public class ProductsByCategoryBase : ComponentBase
         catch (Exception ex)
         {
             ErrorMessage = ex.Message;
+        }
+    }
+
+    private async Task<IEnumerable<ProductDto>> GetProductCollectionByCategoryId(int categoryId)
+    {
+        var productCollection = await ManageProductsLocalStorageService.GetCollectionAsync();
+
+        if(productCollection != null)
+        {
+            return productCollection.Where(p => p.CategoryId == categoryId);
+        }
+        else
+        {
+            return await ProductService.GetItemsByCategory(categoryId);
         }
     }
 }
